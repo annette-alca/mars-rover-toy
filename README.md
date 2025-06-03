@@ -1,5 +1,7 @@
 ### Welcome to the interactive simulation of a toy robot, the Mars Rover
 
+First, clone the repo.
+
 To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
 
 The <ins>rover.py</ins> code has two parts:
