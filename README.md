@@ -5,7 +5,7 @@ To enter the simulation from the command line, run `python rover.py` and follow 
 There are two parts of the <ins>rover.py</ins> code, a `Robot class` that defines the toy robot and 
 a `main` function which is a recursive function enabling interactive control of the robot.
 
-Both parts are tested in  <ins>test_functions.py</ins>. To run the tests pytest and type `pytest` on the command line.
+Both parts are tested in  <ins>test_rover_methods.py</ins>. To run the tests pytest and type `pytest` on the command line.
 
 Enjoy 😊
 
