@@ -10,3 +10,5 @@ Both parts are tested in  <ins>test_rover_methods.py</ins>. To run the tests pyt
 Enjoy 😊
 
 -Annette
+
+![image](https://github.com/user-attachments/assets/b2d0694b-bb75-4599-8d01-966b1c065dfb)
