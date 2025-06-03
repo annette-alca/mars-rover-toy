@@ -2,8 +2,10 @@ import sys #this is needed for tests using stdin
                     
 class Robot:
     def __init__(self,x,y,f):
-        '''Robot is initiated with x,y coordinates and f (facing direction).
-        Attribute value constraints are imposed by the main function (below) that interacts with this class.'''
+        '''
+        Robot is initiated with x,y coordinates and f (facing direction).
+        Attribute value constraints are imposed by the main function (below) that interacts with this class.
+        '''
         self.x = x
         self.y = y
         self.f = f
@@ -11,7 +13,7 @@ class Robot:
     def move(self):
         '''
         Updates: self.x or self.y attribute. 
-        Movement constraints are upheld by use of min and max values
+        Movement constraints are upheld by use of min and max values.
         '''
         min_x, min_y = 0,0
         max_x, max_y = 4,4
@@ -28,7 +30,7 @@ class Robot:
     def turn(self, direction:str):
         '''
         Arg: direction has either "RIGHT" or "LEFT" as a value.
-        Updates: self.f attribute
+        Updates: self.f attribute.
         '''
         clockwise = ["NORTH","EAST","SOUTH","WEST"] #list of directions in clockwise order
         if direction == "RIGHT":  
@@ -41,35 +43,37 @@ class Robot:
         
     def report(self):
         '''
-        Returns: self.x, self.y, self.f attributes in a tuple
+        Returns: self.x, self.y, self.f attributes in a tuple.
         '''
         return self.x, self.y, self.f
     
 
 def main(robot=None, initial_run=True):
-    '''Recursive function that allows interactive management of the robot.
-    User is given valid options. Invalid commands are ignored
+    '''
+    Recursive function that allows interactive management of the robot.
+    User is given valid options. Invalid commands are ignored.
 
     Args:
-    robot : object of class Robot, initial value is None
-    initial_run: boolean to ensure instructions only appear once, initial value is True
+    robot : object of class Robot, initial value is None.
+    initial_run: boolean to ensure instructions only appear once, initial value is True.
     
     Returns:
-    robot object when user types "EXIT" '''
+    robot object when user types "EXIT". 
+    '''
 
     if initial_run:
         print('''\nWelcome! Please type a command for the Mars Rover, options are:\n
-            "PLACE X,Y,F -- X,Y range: 0,0 to 4,4 
-                    \tF options: NORTH, SOUTH, EAST, WEST
-            "MOVE" 
-            "LEFT" 
-            "RIGHT"
-            "REPORT"
-            "EXIT" <-- Remember to type this to exit the simulation. \n''')
+            "PLACE X,Y,F    : X,Y are robot coordinates, valid values are from 0,0 to 4,4 
+                            : F is where the robot is facing, options are NORTH, SOUTH, EAST, WEST
+            "MOVE"          : move robot one spot forward
+            "LEFT"          : rotate left
+            "RIGHT"         : rotate right
+            "REPORT"        : see X,Y,F (location and facing direction) of robot
+            "EXIT"          : **Remember to type this to exit the simulation.** \n''')
         command = input("first command: ")
     else:
         command = input("next command: ")
-    c = command.strip()
+    c = command.upper().strip()
     if c.startswith('PLACE'):
         #PLACE initiates a robot and the conditional statements below ensure it does so
         #only when valid values are selected
