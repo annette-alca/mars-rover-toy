@@ -77,11 +77,13 @@ def main(robot=None, initial_run=True):
     if c.startswith('PLACE'):
         #PLACE initiates a robot and the conditional statements below ensure it does so
         #only when valid values are selected
-        x,y,f = c[5:].strip().split(',')
-        if x.isdigit() and y.isdigit() and f.isalpha():
+        try:
+            x,y,f = c[5:].strip().split(',')
             if int(x) in range(5) and int(y) in range(5) and \
             f in ['NORTH','EAST','SOUTH','WEST']:
                 robot = Robot(int(x),int(y),f)
+        except ValueError:
+            pass
 
     elif robot and c in ['RIGHT','LEFT']:
         robot.turn(c)
