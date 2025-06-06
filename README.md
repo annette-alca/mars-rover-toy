@@ -15,4 +15,5 @@ Enjoy 😊
 
 -Annette
 
-<img width="711" alt="image" src="https://github.com/user-attachments/assets/a17b8ad4-eaa4-4f93-b44e-694745c4d847" />
+![image](https://github.com/user-attachments/assets/ce8b3d0f-bee9-4baf-b346-a452696973d7)
+
