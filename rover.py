@@ -1,51 +1,61 @@
 import sys #this is needed for tests using stdin
-                    
+import numpy as np
+from other_classes import *
+
+class InvalidRobotSpecsError(Exception):
+    '''used by class Robot for invalid values'''
+    pass
+
 class Robot:
     def __init__(self,x,y,f):
         '''
         Robot is initiated with x,y coordinates and f (facing direction).
-        Attribute value constraints are imposed by the main function (below) that interacts with this class.
         '''
-        self.x = x
-        self.y = y
-        self.f = f
+        self.table = Table(5,5)
+        try:
+            coords = (x,y)
+            if self.table.boundary_check(coords):
+                self.coordinates = coords
+            self.f = Facing(f)
+    
+        except OutOfBoundsError:
+            print('\tlog: coordinates out of bounds ')
+            raise InvalidRobotSpecsError
+        
+        except DirectionInvalidError:
+            print('\tlog: invalid value for robot direction ')
+            raise InvalidRobotSpecsError
 
+    def __repr__(self):
+        x,y = self.coordinates
+        return int(x),int(y),self.f
+    
+        
     def move(self):
         '''
-        Updates: self.x or self.y attribute. 
-        Movement constraints are upheld by use of min and max values.
+        Updates: self.coordinates 
+        Trial movement done by f.move_change
+        The checked by table.boundary_check
         '''
-        min_x, min_y = 0,0
-        max_x, max_y = 4,4
-        match self.f:
-            case "NORTH":
-                self.y = min(self.y + 1, max_y)
-            case "SOUTH":
-                self.y = max(self.y - 1, min_y)
-            case "EAST":
-                self.x = min(self.x + 1, max_x)
-            case "WEST":
-                self.x = max(self.x - 1, min_x)
-    
-    def turn(self, direction:str):
-        '''
-        Arg: direction has either "RIGHT" or "LEFT" as a value.
-        Updates: self.f attribute.
-        '''
-        clockwise = ["NORTH","EAST","SOUTH","WEST"] #list of directions in clockwise order
-        if direction == "RIGHT":  
-            #would go to next item in list by using + 1, %4 ensures number is always between 0 and 3
-            new_index = (clockwise.index(self.f)+1)%4
-        elif direction == "LEFT":
-            #would go to previous item in list, using + 3 %4 ensures number is always between 0 and 3
-            new_index = (clockwise.index(self.f)+3)%4
-        self.f = clockwise[new_index]
-        
+        new_coordinates = np.add(self.f.move_change(),self.coordinates)
+        try:
+            if self.table.boundary_check(new_coordinates):
+                self.coordinates = tuple(new_coordinates)
+        except OutOfBoundsError:
+            print(f'\tlog: robot cannot move further {self.f}')
+
     def report(self):
         '''
         Returns: self.x, self.y, self.f attributes in a tuple.
         '''
-        return self.x, self.y, self.f
+        return str(self.__repr__())
+    
+    def turn(self, turn_command):
+        if turn_command == 'LEFT':
+            self.f = self.f.left()
+        elif turn_command == 'RIGHT':
+            self.f = self.f.right()
+                
     
 
 def main(robot=None, initial_run=True):
@@ -73,17 +83,20 @@ def main(robot=None, initial_run=True):
         command = input("first command: ")
     else:
         command = input("next command: ")
+
     c = command.upper().strip()
     if c.startswith('PLACE'):
-        #PLACE initiates a robot and the conditional statements below ensure it does so
-        #only when valid values are selected
+        #PLACE initiates a robot when valid items are met.
         try:
+            prev_robot = robot #backup
             x,y,f = c[5:].strip().split(',')
-            if int(x) in range(5) and int(y) in range(5) and \
-            f in ['NORTH','EAST','SOUTH','WEST']:
-                robot = Robot(int(x),int(y),f)
+            robot = Robot(int(x),int(y),f)
         except ValueError:
-            pass
+            print('\tlog: invalid place parameters')
+        except InvalidRobotSpecsError:
+            robot = prev_robot
+            if robot:
+                print(f'Previous robot at {robot.report()} still in place.')
 
     elif robot and c in ['RIGHT','LEFT']:
         robot.turn(c)
