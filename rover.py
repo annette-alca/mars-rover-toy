@@ -92,7 +92,7 @@ def main(robot=None, initial_run=True):
             x,y,f = c[5:].strip().split(',')
             robot = Robot(int(x),int(y),f)
         except ValueError:
-            print('\tlog: invalid place parameters')
+            print('\tlog: invalid PLACE parameters')
         except InvalidRobotSpecsError:
             robot = prev_robot
             if robot:
