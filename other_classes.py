@@ -14,9 +14,19 @@ default_movement_dict =  {
             'WEST': (-1,0)
         }
 class Facing:
-    '''direction class, has four options for directions'''
-    def __init__(self,f, movement = default_movement_dict):
-        self.movement = movement
+    '''a directions the robot is allowed to face'''
+    def __init__(self,f, f_dict = default_movement_dict):
+        '''
+        args:
+        f : a string, direction, must be a key in f_dict
+        f_dict : a dictionary of 
+                a key direction, string (facing direction) 
+                a value tuple (change in x,y) 
+                      : keys must be in clockwise order 
+        raises:
+        DirectionInvalidError when f is not part of dict     
+        '''
+        self.movement = f_dict
         self.clockwise = list(self.movement.keys())
         if f in self.clockwise:
             self.f = f

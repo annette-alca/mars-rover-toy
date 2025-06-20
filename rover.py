@@ -27,8 +27,7 @@ class Robot:
             raise InvalidRobotSpecsError
 
     def __repr__(self):
-        x,y = self.coordinates
-        return int(x),int(y),self.f
+        return str(self.report())
     
         
     def move(self):
@@ -42,13 +41,14 @@ class Robot:
             if self.table.boundary_check(new_coordinates):
                 self.coordinates = tuple(new_coordinates)
         except OutOfBoundsError:
-            print(f'\tlog: robot cannot move further {self.f}')
+            print(f'\tlog: robot cannot move further {self.f} at {self.report()}')
 
     def report(self):
         '''
         Returns: self.x, self.y, self.f attributes in a tuple.
         '''
-        return str(self.__repr__())
+        x,y = self.coordinates
+        return int(x),int(y),self.f
     
     def turn(self, turn_command):
         if turn_command == 'LEFT':

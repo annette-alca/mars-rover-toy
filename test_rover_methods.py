@@ -13,7 +13,7 @@ class TestRobotMethods:
         assert isinstance(robot1,Robot)
         assert robot1.coordinates == (2,1)
         assert robot1.f == Facing('NORTH')
-        assert robot1.report() == "(2, 1, NORTH)"
+        assert robot1.report() == (2, 1, Facing('NORTH'))
 
     def test_Robot_turn_method_updates_direction(self, robot1):
         robot1.turn('LEFT')
@@ -33,16 +33,16 @@ class TestRobotMethods:
         robot2 = Robot(4,4,'NORTH')
         robot2.move
         assert robot2.coordinates == (4,4) #no movement
-        assert robot2.report() == "(4, 4, NORTH)" #no movement
+        assert robot2.report() == (4, 4, Facing('NORTH')) #no movement
 
     def test_Robot_able_to_move_again_after_hitting_boundary_and_turning(self):
         robot2 = Robot(4,4,'NORTH')
         robot2.move
-        assert robot2.report() == "(4, 4, NORTH)" #no movement
+        assert robot2.report() == (4, 4, Facing('NORTH')) #no movement
         robot2.turn('LEFT')
-        assert robot2.report() == "(4, 4, WEST)"
+        assert robot2.report() == (4, 4, Facing('WEST'))
         robot2.move()
-        assert robot2.report() == "(3, 4, WEST)" #movement allowed again
+        assert robot2.report() == (3, 4, Facing('WEST')) #movement allowed again
 
 class TestInteractiveMain:        
     def test_PLACE_command_creates_Robot_instance_with_valid_values(self):
@@ -53,7 +53,7 @@ class TestInteractiveMain:
             assert isinstance(robot,Robot)
             assert robot.coordinates == (3,1)
             assert robot.f == Facing('EAST')
-            assert robot.report() == "(3, 1, EAST)"
+            assert robot.report() == (3, 1, Facing('EAST'))
 
     def test_PLACE_command_creates_no_Robot_with_invalid_values(self):
         input_mock = Mock(side_effect=['PLACE 22,77,88','EXIT'])
@@ -71,7 +71,7 @@ class TestMainandRobotWithTestData:
         with patch('rover.sys.stdin.readline', input_mock): #replace values in std_input with text
             robot = main()
             captured = capsys.readouterr() #capture std output
-            assert robot.report() == expected_report
+            assert str(robot.report()) == expected_report
             assert f"Output: {expected_report}" in captured.out
 
     def test_data2(self,capsys):
@@ -81,7 +81,7 @@ class TestMainandRobotWithTestData:
         with patch('rover.sys.stdin.readline', input_mock):
             robot = main()
             captured = capsys.readouterr()
-            assert robot.report() == expected_report
+            assert str(robot.report()) == expected_report
             assert f"Output: {expected_report}" in captured.out
 
     def test_data3(self,capsys):
@@ -91,5 +91,5 @@ class TestMainandRobotWithTestData:
         with patch('rover.sys.stdin.readline', input_mock):
             robot = main()
             captured = capsys.readouterr() 
-            assert robot.report() == expected_report
+            assert str(robot.report()) == expected_report
             assert f"Output: {expected_report}" in captured.out
