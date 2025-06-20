@@ -1,5 +1,5 @@
 ### Welcome to the interactive simulation of a toy robot, the Mars Rover
-### This is an exercise in Object-Oriented Programming
+### This is an exercise in Object-Oriented Programming based on [this test]('https://joneaves.wordpress.com/2014/07/21/toy-robot-coding-test/').
 
 This repo has been updated to extend its functionality and log robot controller errors. The original repo had one `Robot class` which was handling several complex behaviours. These have now been split into new classes, more in line with the Single Responsibility Principle of classes. 
 
