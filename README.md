@@ -1,5 +1,5 @@
 ### Welcome to the interactive simulation of a toy robot, the Mars Rover
-### This is an exercise in Object-Oriented Programming based on [this test]('https://joneaves.wordpress.com/2014/07/21/toy-robot-coding-test/').
+### This is an exercise in Object-Oriented Programming based on [this test](https://joneaves.wordpress.com/2014/07/21/toy-robot-coding-test/).
 
 This repo has been updated to extend its functionality and log robot controller errors. The original repo had one `Robot class` which was handling several complex behaviours. These have now been split into new classes, more in line with the Single Responsibility Principle of classes. 
 
@@ -20,7 +20,7 @@ First, clone the repo.
 
 To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
 
-Some tests are written in  <ins>test_rover_methods.py</ins>. To run the test, install the pytest module first. Then type `pytest test-rover-methods.py -v` on the command line.
+Unit and integration tests are written in two files in the  <ins>test_rover_methods.py</ins> and  <ins>test_other_classes.py</ins>. To run all the test, install the pytest library first with `pip install pytest`. Then type `pytest  -v` on the command line.
 
 Enjoy 😊
 
