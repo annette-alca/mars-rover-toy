@@ -20,7 +20,7 @@ First, clone the repo.
 
 To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
 
-Some tests are written in  <ins>test_rover_methods.py</ins>. To run the test, install the pytest module first. Then type `pytest test-rover-methods.py -v` on the command line.
+Unit and integration tests are written in two files in the  <ins>test_rover_methods.py</ins> and  <ins>test_other_classes.py</ins>. To run all the test, install the pytest library first with `pip install pytest`. Then type `pytest  -v` on the command line.
 
 Enjoy 😊
 
