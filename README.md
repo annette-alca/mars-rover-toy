@@ -15,12 +15,14 @@ A second file <ins>other_classes.py</ins> contains classes and exceptions that <
 
 A third file <ins>test_rover_methods.py</ins> has a series of tests for the `Robot class` methods and the `main` function. Test data is also included there. 
 
+A fourth file <ins>test_other_classes.py</ins> contains unit tests for the `Table class` and `Facing class`.
+
 ### Instructions:
 First, clone the repo.
 
 To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
 
-Unit and integration tests are written in two files in the  <ins>test_rover_methods.py</ins> and  <ins>test_other_classes.py</ins>. To run all the test, install the pytest library first with `pip install pytest`. Then type `pytest  -v` on the command line.
+To run all the tests, install the pytest library first with `pip install pytest`. Then type `pytest  -v` on the command line.
 
 Enjoy 😊
 
