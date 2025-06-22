@@ -1,6 +1,5 @@
 import pytest
 from rover import *
-from other_classes import *
 from unittest.mock import Mock, patch
 
 @pytest.fixture
@@ -14,6 +13,10 @@ class TestRobotMethods:
         assert robot1.coordinates == (2,1)
         assert robot1.f == Facing('NORTH')
         assert robot1.report() == (2, 1, Facing('NORTH'))
+
+    def test_PLACE_Robot_raises_InvalidRobotSpecsError_with_invalid_values(self):
+        with pytest.raises(InvalidRobotSpecsError) as err:
+            robot = Robot(33,33,23)
 
     def test_Robot_turn_method_updates_direction(self, robot1):
         robot1.turn('LEFT')
@@ -62,7 +65,6 @@ class TestInteractiveMain:
             assert robot == None
 
 class TestMainandRobotWithTestData:
-
     def test_data1(self,capsys):
         #EXIT had to be added to end recursion and return robot object.
         input_text = ["PLACE 0,0,NORTH","LEFT","REPORT","EXIT"]
