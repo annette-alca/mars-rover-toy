@@ -1,6 +1,18 @@
 import sys #this is needed for tests using stdin
 import numpy as np
+import logging
 from other_classes import *
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler('rover.log')
+    ]
+)
+logger = logging.getLogger(__name__)
 
 class InvalidRobotSpecsError(Exception):
     '''used by class Robot for invalid values'''
@@ -19,11 +31,11 @@ class Robot:
             self.f = Facing(f)
     
         except OutOfBoundsError:
-            print('\tlog: coordinates out of bounds ')
+            logger.error('Coordinates out of bounds: %s', coords)
             raise InvalidRobotSpecsError
         
         except DirectionInvalidError:
-            print('\tlog: invalid value for robot direction ')
+            logger.error('Invalid value for robot direction: %s', f)
             raise InvalidRobotSpecsError
 
     def __repr__(self):
@@ -41,7 +53,7 @@ class Robot:
             if self.table.boundary_check(new_coordinates):
                 self.coordinates = tuple(new_coordinates)
         except OutOfBoundsError:
-            print(f'\tlog: robot cannot move further {self.f} at {self.report()}')
+            raise OutOfBoundsError
 
     def report(self):
         '''
@@ -89,10 +101,10 @@ def main(robot=None, initial_run=True):
         #PLACE initiates a robot when valid items are met.
         try:
             prev_robot = robot #backup
-            x,y,f = c[5:].strip().split(',')
+            x,y,f = c[5:].strip().replace(' ','').split(',')
             robot = Robot(int(x),int(y),f)
         except ValueError:
-            print('\tlog: invalid PLACE parameters')
+            logger.error('Invalid PLACE parameters: %s', c[5:].strip())
         except InvalidRobotSpecsError:
             robot = prev_robot
             if robot:
@@ -101,7 +113,10 @@ def main(robot=None, initial_run=True):
     elif robot and c in ['RIGHT','LEFT']:
         robot.turn(c)
     elif robot and c == 'MOVE':
-        robot.move()
+        try:
+            robot.move()
+        except OutOfBoundsError:
+            logger.warning(f'Robot cannot move further {robot.f}. Current position: {robot.report()}')
     elif robot and c == 'REPORT':
         print(f"\nOutput: {robot.report()}\n")
     elif c == 'EXIT':
