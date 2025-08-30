@@ -19,7 +19,7 @@ This repo has been updated to extend its functionality and log robot controller 
 
 
 ## Instructions:
-1. First, clone the repo.
+1. Clone the repo.
 
 2. To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
 
