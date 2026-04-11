@@ -46,14 +46,13 @@ class Robot:
         '''
         Updates: self.coordinates 
         Trial movement done by f.move_change
-        The checked by table.boundary_check
+        Then checked by table.boundary_check
         '''
         new_coordinates = np.add(self.f.move_change(),self.coordinates)
-        try:
-            if self.table.boundary_check(new_coordinates):
-                self.coordinates = tuple(new_coordinates)
-        except OutOfBoundsError:
-            raise OutOfBoundsError
+
+        if self.table.boundary_check(new_coordinates):
+            self.coordinates = tuple(new_coordinates)
+
 
     def report(self):
         '''

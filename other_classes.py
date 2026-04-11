@@ -45,7 +45,7 @@ class Facing:
         return Facing(self.clockwise[new_findex])
     
     def left(self):
-        new_findex = self.findex - 1
+        new_findex = (self.findex - 1)%len(self.clockwise)
         return Facing(self.clockwise[new_findex])
     
     def move_change(self):

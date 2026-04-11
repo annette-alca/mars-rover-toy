@@ -35,13 +35,14 @@ class TestRobotClass:
 
     def test_Robot_move_does_not_exceed_table_constraints(self):
         robot2 = Robot(4,4,'NORTH')
-        robot2.move
-        assert robot2.coordinates == (4,4) #no movement
+        with pytest.raises(OutOfBoundsError):
+            robot2.move()
         assert robot2.report() == (4, 4, Facing('NORTH')) #no movement
 
     def test_Robot_able_to_move_again_after_hitting_boundary_and_turning(self):
         robot2 = Robot(4,4,'NORTH')
-        robot2.move
+        with pytest.raises(OutOfBoundsError):
+            robot2.move()
         assert robot2.report() == (4, 4, Facing('NORTH')) #no movement
         robot2.turn('LEFT')
         assert robot2.report() == (4, 4, Facing('WEST'))
