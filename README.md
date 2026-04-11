@@ -20,11 +20,13 @@ This repo has been updated to extend its functionality and log robot controller 
 ## Instructions:
 1. Clone the repo and cd into this folder. 
 
-2. Install requirements (numpy and pytest). For uv, I used `uv init`. Alternatively, use `pip install -r requirements.txt`.
+2. Install requirements (numpy and pytest):
+    - a. To use uv, first install it with `pip install uv`, then run `uv sync` to install dependencies from `pyproject.toml`.
+    - b. Alternatively, use `pip install -r requirements.txt`.
 
-3. To start the simulation from the command line, run `python rover.py` and follow the on-screen instructions.
+3. To start the simulation from the command line, run `uv run python rover.py` (or `python rover.py` if using pip) and follow the on-screen instructions.
 
-4. To run all the tests and see their descriptions,  type `pytest  -vv` on the command line.
+4. To run all the tests and see their descriptions, type `uv run pytest -vv` (or `pytest -vv` if using pip) on the command line.
 
 
 
